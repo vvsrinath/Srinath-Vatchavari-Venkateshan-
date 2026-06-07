@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import profileImage from "@assets/profile.png";
 
 const NAV_LINKS = [
   { name: "About", href: "#about" },
@@ -64,11 +65,16 @@ export function Navbar() {
           <motion.a
             href="#top"
             onClick={(e) => { e.preventDefault(); scrollToSection("#top"); }}
-            className="text-xl font-bold font-sans tracking-tight"
+            className="flex items-center gap-2.5 text-xl font-bold font-sans tracking-tight"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            SV<span className="text-primary">.</span>
+            <img
+              src={profileImage}
+              alt="Srinath Vatchavari Venkateshan"
+              className="w-8 h-8 rounded-full object-cover border border-primary/20"
+            />
+            <span>SV<span className="text-primary">.</span></span>
           </motion.a>
 
           {/* Desktop Nav */}
