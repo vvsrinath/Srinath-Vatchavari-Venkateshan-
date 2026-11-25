@@ -20,7 +20,7 @@ export function About() {
             index="01"
             label="About"
             title={<>Beyond a Single Discipline.</>}
-            description="An independent learner whose interests move between mechanical systems, materials, computation, energy and emerging technology."
+            description="My interests move between mechanical systems, materials, computation, energy and emerging technology."
           />
         </Reveal>
 
@@ -56,8 +56,8 @@ export function About() {
 
             <Reveal delay={0.08}>
               <p className="mt-9 max-w-[42rem] text-[15px] leading-[1.9] text-ink-soft">
-                Srinath is an independent thinker and interdisciplinary learner. His
-                work often begins with a question that does not belong to one subject.
+                I am an independent thinker and interdisciplinary learner. My work
+                often begins with a question that does not belong to one subject.
                 Following it means reading outside a syllabus, learning a tool from
                 scratch, testing an idea in a small way and being willing to be wrong.
               </p>
@@ -65,8 +65,8 @@ export function About() {
 
             <Reveal delay={0.12}>
               <p className="mt-5 max-w-[42rem] text-[15px] leading-[1.9] text-ink-soft">
-                He is interested in the space where a theory becomes a test, and a test
-                becomes something you can hold or measure. The areas below are
+                I am interested in the space where a theory becomes a test, and a test
+                becomes something I can hold or measure. The areas below are
                 directions of exploration, not claims of mastery in every field.
               </p>
             </Reveal>
