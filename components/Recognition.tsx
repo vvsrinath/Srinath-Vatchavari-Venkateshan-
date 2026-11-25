@@ -5,7 +5,7 @@ import { recognition } from "@/lib/content";
 
 export function Recognition() {
   return (
-    <section id="recognition" className="bg-ink py-24 text-white sm:py-28 lg:py-36">
+    <section id="recognition" className="section-dark bg-ink py-24 text-white sm:py-28 lg:py-36">
       <div className="page-shell">
         <Reveal>
           <SectionHeading

@@ -41,7 +41,7 @@ export function Disciplines() {
               <motion.article
                 whileHover={reduced ? undefined : { y: -4 }}
                 transition={{ type: "spring", stiffness: 340, damping: 26 }}
-                className="group flex h-full flex-col justify-between border-t border-line px-1 pb-10 pt-6 transition-colors duration-500 hover:bg-paper-2"
+                className="group flex h-full flex-col justify-between border-t border-line px-1 pb-10 pt-6 transition-colors duration-500 hover:border-forest/40 hover:bg-paper-2"
               >
                 <div className="flex items-start justify-between gap-6">
                   <p className="eyebrow text-muted">

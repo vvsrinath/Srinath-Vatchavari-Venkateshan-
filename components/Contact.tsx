@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 
 export function Contact() {
   return (
-    <section id="contact" className="bg-ink py-24 text-white sm:py-28 lg:py-36">
+    <section id="contact" className="section-dark bg-ink py-24 text-white sm:py-28 lg:py-36">
       <div className="page-shell">
         <Reveal>
           <SectionHeading
@@ -30,15 +30,26 @@ export function Contact() {
                 If you are working on something that does not fit neatly into one
                 discipline, I would like to hear about it.
               </p>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="group mt-10 inline-flex items-center gap-4 bg-white px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-[#A8C3B1]"
-              >
-                Message Me on LinkedIn
-                <Arrow className="transition-transform duration-300 ease-editorial group-hover:translate-x-1" />
-              </a>
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                {site.email && (
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="group inline-flex items-center gap-4 bg-white px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-[#A8C3B1]"
+                  >
+                    Email Srinath
+                    <Arrow className="transition-transform duration-300 ease-editorial group-hover:translate-x-1" />
+                  </a>
+                )}
+                <a
+                  href={site.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-4 border border-white/30 px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:border-[#A8C3B1] hover:text-[#A8C3B1]"
+                >
+                  LinkedIn
+                  <Arrow className="transition-transform duration-300 ease-editorial group-hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           </Reveal>
 

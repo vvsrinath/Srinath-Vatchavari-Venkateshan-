@@ -33,6 +33,8 @@ npm start
 
 All editorial copy lives in `lib/content.ts` and `lib/site.ts`. No section requires code changes in a component to update text, project status, keywords or links.
 
+The Projects section supports stage filters (research, built/live, concepts), expand/collapse-all controls, and clickable project summaries. The header includes a scroll-progress line and active section state; all nine sections are reachable from desktop and mobile navigation. A floating back-to-top control appears after the first screenful.
+
 Project status labels are deliberately honest: `ongoing research`, `live tool`, `live prototype`, `prototype`, `completed`, `concept`. Change them in `lib/content.ts` as work progresses. Each project can list multiple links in its `links` array, such as a live dashboard and a repository.
 
 ## Contact

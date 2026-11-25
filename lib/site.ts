@@ -23,7 +23,10 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Exploration", href: "#exploration" },
-  { label: "Research & Projects", href: "#projects" },
+  { label: "Projects", href: "#projects" },
   { label: "Recognition", href: "#recognition" },
+  { label: "Approach", href: "#philosophy" },
+  { label: "Opportunities", href: "#opportunities" },
+  { label: "Credentials", href: "#credentials" },
   { label: "Contact", href: "#contact" },
 ];

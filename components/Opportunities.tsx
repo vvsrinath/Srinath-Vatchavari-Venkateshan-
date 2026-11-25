@@ -1,12 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Arrow } from "@/components/ui/Arrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { opportunities } from "@/lib/content";
 
 export function Opportunities() {
+  const reduced = useReducedMotion();
+
   return (
     <section id="opportunities" className="bg-paper-2 py-24 sm:py-28 lg:py-36">
       <div className="page-shell">
@@ -37,7 +39,7 @@ export function Opportunities() {
 
               <motion.a
                 href="#contact"
-                whileHover={{ y: -2 }}
+                whileHover={reduced ? undefined : { y: -2 }}
                 transition={{ type: "spring", stiffness: 380, damping: 26 }}
                 className="group mt-10 inline-flex items-center gap-4 bg-forest px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-white"
               >

@@ -6,15 +6,25 @@ import { navItems, site } from "@/lib/site";
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(window.scrollY > 24);
+      setProgress(max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -43,6 +53,15 @@ export function Navigation() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <>
       <a
@@ -59,11 +78,11 @@ export function Navigation() {
             : "border-transparent bg-transparent"
         }`}
       >
-        <div className="page-shell flex h-[72px] items-center justify-between gap-6">
+        <div className="page-shell flex h-[72px] items-center justify-between gap-5 xl:gap-8">
           <a
             href="#home"
             onClick={() => setOpen(false)}
-            className="group flex items-baseline gap-2"
+            className="group flex shrink-0 items-baseline gap-2"
           >
             <span className="font-display text-[26px] leading-none tracking-[-0.06em]">
               SV<span className="text-forest transition-colors group-hover:text-ink">V</span>
@@ -73,13 +92,14 @@ export function Navigation() {
             </span>
           </a>
 
-          <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
+          <nav aria-label="Primary navigation" className="hidden items-center gap-4 lg:flex xl:gap-6">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 data-active={active === item.href}
-                className={`link-underline text-[12px] tracking-[0.01em] transition-colors duration-300 ${
+                aria-current={active === item.href ? "true" : undefined}
+                className={`link-underline whitespace-nowrap text-[11px] tracking-[0.01em] transition-colors duration-300 xl:text-[12px] ${
                   active === item.href ? "text-forest" : "text-ink-soft hover:text-forest"
                 }`}
               >
@@ -88,7 +108,7 @@ export function Navigation() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-2.5 lg:flex">
+          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-forest opacity-50" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-forest" />
@@ -102,7 +122,7 @@ export function Navigation() {
             aria-expanded={open}
             aria-controls="mobile-navigation"
             aria-label={open ? "Close navigation" : "Open navigation"}
-            className="relative z-[60] flex h-10 w-10 items-center justify-center border border-line text-ink lg:hidden"
+            className="relative z-[60] flex h-10 w-10 shrink-0 items-center justify-center border border-line text-ink lg:hidden"
           >
             <span className="relative block h-3 w-4">
               <motion.span
@@ -120,6 +140,13 @@ export function Navigation() {
             </span>
           </button>
         </div>
+
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-px">
+          <div
+            className="h-full bg-forest transition-[width] duration-150 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </header>
 
       <AnimatePresence>
@@ -130,7 +157,7 @@ export function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduced ? 0 : 0.3 }}
-            className="fixed inset-0 z-40 flex flex-col bg-paper px-6 pb-10 pt-28 lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-paper px-6 pb-10 pt-28 lg:hidden"
           >
             <nav aria-label="Mobile navigation" className="flex flex-col">
               {navItems.map((item, index) => (
@@ -141,33 +168,46 @@ export function Navigation() {
                     document.body.style.overflow = "";
                     setOpen(false);
                   }}
+                  aria-current={active === item.href ? "true" : undefined}
                   initial={reduced ? false : { opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: reduced ? 0 : 0.06 * index + 0.1, duration: 0.5 }}
-                  className="flex items-baseline justify-between border-b border-line py-4"
+                  transition={{ delay: reduced ? 0 : 0.04 * index + 0.08, duration: 0.45 }}
+                  className={`flex items-baseline justify-between border-b border-line py-3.5 ${
+                    active === item.href ? "text-forest" : "text-ink"
+                  }`}
                 >
-                  <span className="font-display text-[clamp(2rem,9vw,3.25rem)] leading-none">
+                  <span className="font-display text-[clamp(1.65rem,7vw,2.6rem)] leading-none">
                     {item.label}
                   </span>
                   <span className="font-mono text-[10px] text-muted">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </motion.a>
               ))}
             </nav>
 
-            <div className="mt-auto flex items-end justify-between gap-6 pt-10">
+            <div className="mt-auto flex flex-wrap items-end justify-between gap-5 pt-10">
               <p className="max-w-[15rem] text-[13px] leading-relaxed text-muted">
                 Open to R&amp;D engineering internship opportunities.
               </p>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="link-underline text-[12px] uppercase tracking-[0.12em] text-forest"
-              >
-                LinkedIn
-              </a>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                {site.email && (
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="link-underline text-[12px] uppercase tracking-[0.12em] text-forest"
+                  >
+                    Email
+                  </a>
+                )}
+                <a
+                  href={site.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-underline text-[12px] uppercase tracking-[0.12em] text-forest"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

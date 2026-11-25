@@ -2,7 +2,7 @@ import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="bg-ink pb-10 pt-2 text-white">
+    <footer className="section-dark bg-ink pb-10 pt-2 text-white">
       <div className="page-shell">
         <div className="flex flex-wrap items-end justify-between gap-8 border-t border-white/20 pt-8">
           <div>
@@ -14,6 +14,14 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+            {site.email && (
+              <a
+                href={`mailto:${site.email}`}
+                className="link-underline font-mono text-[10px] uppercase tracking-[0.16em] text-white/60 hover:text-white"
+              >
+                Email
+              </a>
+            )}
             <a
               href={site.linkedin}
               target="_blank"
